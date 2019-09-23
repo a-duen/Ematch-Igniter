@@ -17,7 +17,8 @@
 
 /*Constants------------------------------------------------------------*/
 #define SerialUSB   Serial
-
+#define MAIN
+#define DROGUE
 /*Functions------------------------------------------------------------*/
 
 /**
@@ -25,8 +26,8 @@
   * @param  None
   * @return None
   */
-void setup() {
-
+void setup()
+{
     SerialUSB.begin(115200);
     while (!SerialUSB) {}
     SerialUSB.println("Initializing...");
@@ -46,12 +47,9 @@ void setup() {
     else
         SerialUSB.println("Drogue Continuity Check FAILED");
 
-    // infinite loop to halt program with continuity error
-    while (!mainCheck || !drogueCheck){
-        delay(2500);
+    // Outputs error message
+    if (!mainCheck || !drogueCheck)
         SerialUSB.println("Check igniters!");
-    }
-
 }
 
 /**
@@ -59,7 +57,8 @@ void setup() {
   * @param  None
   * @return None
   */
-void loop() {
+void loop()
+{
     // checks for serial input
     if(SerialUSB.available())
         serviceDebug();

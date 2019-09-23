@@ -23,6 +23,8 @@
 /*Constants------------------------------------------------------------*/
 #define SerialUSB   Serial
 
+#define TESTING //uncomment to disable serial debugging messages
+
 //Double, triple check pin assignments !
 #define MAIN_IGNITER_PIN 16
 #define DROGUE_IGNITER_PIN 35
@@ -54,27 +56,34 @@ void initIgniter(void)
     pinMode(MAIN_IGNITER_PIN, OUTPUT);
     digitalWrite(MAIN_IGNITER_PIN, LOW);
 
-    SerialUSB.println("main igniter pin initialized low");
+    #ifdef TESTING
+        SerialUSB.println("main igniter pin initialized low");
+    #endif
 
     /*init ematch continuity check pins */
     pinMode(MAIN_CONTINUITY_CHECK_PIN, OUTPUT);
     digitalWrite(MAIN_CONTINUITY_CHECK_PIN, LOW);
     // the ADC read pin does not need to be initialized !!
 
-    SerialUSB.println("main release continuity pins initialized");
+    #ifdef TESTING
+        SerialUSB.println("main release continuity pins initialized");
+    #endif
 
     /*init drogue igniter*/
     pinMode(DROGUE_IGNITER_PIN, OUTPUT);
     digitalWrite(DROGUE_IGNITER_PIN, LOW);
 
-    SerialUSB.println("drogue igniter pin initialized low");
-
+    #ifdef TESTING
+       SerialUSB.println("drogue igniter pin initialized low");
+    #endif
 
     /*init drogue ematch continuity check pins */
     pinMode(DROGUE_CONTINUITY_CHECK_PIN, OUTPUT);
     digitalWrite(DROGUE_CONTINUITY_CHECK_PIN, LOW);
 
-    SerialUSB.println("drogue continuity pins initialized");
+    #ifdef TESTING
+        SerialUSB.println("drogue continuity pins initialized");
+    #endif
 }
 
 /**
@@ -89,7 +98,9 @@ void deployDrogue(void)
     delay(IGNITER_DELAY);
     digitalWrite(DROGUE_IGNITER_PIN, LOW);
 
-    SerialUSB.println("DROGUE IGNITER FIRED");
+    #ifdef TESTING
+        SerialUSB.println("DROGUE IGNITER FIRED");
+    #endif
 }
 
 /**
@@ -103,7 +114,9 @@ void deployMain(void)
     delay(IGNITER_DELAY);
     digitalWrite(MAIN_IGNITER_PIN, LOW);
 
-    SerialUSB.println("MAIN IGNITER FIRED");
+    #ifdef TESTING
+        SerialUSB.println("MAIN IGNITER FIRED");
+    #endif
 }
 
 /** bool continuityCheck(void)
@@ -112,7 +125,8 @@ void deployMain(void)
   * @return bool flag that is true if there is continuity,
   *             false if the ematch is disconnected or broken.
   */
- bool MainContinuityCheck(void){
+ bool MainContinuityCheck(void)
+ {
     // Main continuity check
     digitalWrite(MAIN_CONTINUITY_CHECK_PIN, HIGH);
     delayMicroseconds(CONTINUITY_CHECK_DELAY);
@@ -120,8 +134,10 @@ void deployMain(void)
     int main_continuity = analogRead(MAIN_CONTINUITY_CHECK_ADC);
     digitalWrite(MAIN_CONTINUITY_CHECK_PIN, LOW);
 
-    SerialUSB.print("Main contiunity check ADC read: ");
-    SerialUSB.println(main_continuity);
+    #ifdef TESTING
+        SerialUSB.print("Main contiunity check ADC read: ");
+        SerialUSB.println(main_continuity);
+    #endif
 
     if (main_continuity <= DISCONTINUOUS_THRESHOLD)
         return false;
@@ -135,7 +151,8 @@ void deployMain(void)
   * @return bool flag that is true if there is continuity,
   *             false if the ematch is disconnected or broken.
   */
-bool DrogueContinuityCheck(void){
+bool DrogueContinuityCheck(void)
+{
     // Drogue continuity check
     digitalWrite(DROGUE_CONTINUITY_CHECK_PIN, HIGH);
     delayMicroseconds(CONTINUITY_CHECK_DELAY);
@@ -143,8 +160,10 @@ bool DrogueContinuityCheck(void){
     int drogue_continuity = analogRead(DROGUE_CONTINUITY_CHECK_ADC);
     digitalWrite(DROGUE_CONTINUITY_CHECK_PIN, LOW);
 
-    SerialUSB.print("Drogue contiunity check ADC read: ");
-    SerialUSB.println(drogue_continuity);
+    #ifdef TESTING
+        SerialUSB.print("Drogue contiunity check ADC read: ");
+        SerialUSB.println(drogue_continuity);
+    #endif
 
     if (drogue_continuity <= DISCONTINUOUS_THRESHOLD)
         return false;

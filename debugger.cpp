@@ -20,7 +20,7 @@
 #define SerialUSB   Serial
 
 /* Functions------------------------------------------------------------*/
-void serviceDebug()
+void serviceDebug(void)
 {
     static bool mainCheck, drogueCheck = true;
     char command = SerialUSB.read();
