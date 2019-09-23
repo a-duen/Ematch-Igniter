@@ -17,8 +17,8 @@
 
 /*Constants------------------------------------------------------------*/
 #define SerialUSB   Serial
-#define MAIN
-#define DROGUE
+#define MAIN    // comment out if you are not using main
+#define DROGUE  // comment out if you are not using drogue
 /*Functions------------------------------------------------------------*/
 
 /**
@@ -33,19 +33,24 @@ void setup()
     SerialUSB.println("Initializing...");
 
     initIgniter();
+    bool mainCheck = true;
+    bool drogueCheck = true;
 
-    bool mainCheck = MainContinuityCheck();
-    bool drogueCheck = DrogueContinuityCheck();
+    #ifdef MAIN
+        mainCheck = MainContinuityCheck();
+        if (mainCheck)
+            SerialUSB.println("Main Continuity Check Passed");
+        else
+            SerialUSB.println("Main Continuity Check FAILED");
+    #endif  // MAIN
 
-    if (mainCheck)
-        SerialUSB.println("Main Continuity Check Passed");
-    else
-        SerialUSB.println("Main Continuity Check FAILED");
-
-    if (drogueCheck)
-        SerialUSB.println("Drogue Continuity Check Passed");
-    else
-        SerialUSB.println("Drogue Continuity Check FAILED");
+    #ifdef DROGUE
+        drogueCheck = DrogueContinuityCheck();
+        if (drogueCheck)
+            SerialUSB.println("Drogue Continuity Check Passed");
+        else
+            SerialUSB.println("Drogue Continuity Check FAILED");
+    #endif
 
     // Outputs error message
     if (!mainCheck || !drogueCheck)
