@@ -4,4 +4,5 @@ It can also be found in the file "Igniter User's Guide.pdf"
 
 ## CKT file
 Use CircuitMaker 6.0 to open the ematch-igniter.ckt file \
-* A copy of CircuitMaker 6.0 is included here *
+A copy of CircuitMaker 6.0 is included in the folder, \
+it should be good to go after unzipping it.
