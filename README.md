@@ -3,9 +3,9 @@ Circuit description and usage guide found in the wiki at https://github.com/a-du
 It can also be found in the file "Igniter User's Guide.pdf"
 
 ### Notes on the design
-This was designed over the course of one afternoon to fill an urgent need, it has been thoroughly tested but \
-the design was never reviewed or revisited.  It works well but the limitations of the system are spelled out \
-in the attached pdf file, as well as ideas on how to improve on the design if you wish to use this as a  \
+This was designed over the course of one afternoon to fill an urgent need.  It has been thoroughly tested but \
+its design was never reviewed or revisited.  It works well but the limitations of the system are spelled out \
+in the attached pdf file, which also includes ideas on how to improve on the design if you wish to use this as a  \
 starting point for your own design.
 
 ## CKT file
